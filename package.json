@@ -17,10 +17,7 @@
     "@types/react": "~18.2.14",
     "expo": "^49.0.23",
     "expo-auth-session": "~5.0.2",
-<<<<<<< HEAD
     "expo-image-picker": "~14.3.2",
-=======
->>>>>>> 9805960bbe113512d0cf79d244799cb45513adc0
     "expo-random": "~13.2.0",
     "expo-secure-store": "~12.3.1",
     "expo-status-bar": "~1.6.0",

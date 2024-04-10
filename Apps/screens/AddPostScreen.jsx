@@ -7,15 +7,16 @@ import {
   Pressable,
   Vibration,
   ScrollView,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getFirestore } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
 import { app } from "../../firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const storage = getStorage();
 
@@ -24,11 +25,12 @@ const AddPostScreen = () => {
   const [price, setprice] = useState();
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
+  const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
-    Vibration.vibrate(40)
+    Vibration.vibrate(40);
 
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -52,21 +54,50 @@ const AddPostScreen = () => {
   }, []);
 
   const submit = async () => {
-    Vibration.vibrate(80)
+    Vibration.vibrate(80);
+    setLoading(true);
     console.log("title : " + title);
     console.log("description : " + description);
     console.log("price : " + price);
     console.log("category : " + selectedCategory);
-    const resp= await fetch(image);
+    const resp = await fetch(image);
     const blob = await resp.blob();
 
-    const storageRef = ref(storage, 'karolPosts/'+Date.now()+'.jpg');
+    const storageRef = ref(storage, "karolPosts/" + Date.now() + ".jpg");
 
-    uploadBytes(storageRef, blob).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-    });
+    uploadBytes(storageRef, blob)
+      .then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+      })
+      .then((repsonse) => {
+        getDownloadURL(storageRef)
+          .then(async (downloadURL) => {
+            console.log(downloadURL);
+            try {
+              const docRef = await addDoc(collection(db, "UserPosts"), {
+                title: title,
+                description: description,
+                price: price,
+                category: selectedCategory,
+                imageLink: downloadURL,
+                email: "ayush4002gupta@gmail.com",
+                userName: "ayush4002",
+              });
+              if (docRef.id) {
+                setLoading(false);
+                Alert.alert('Success!!' ,'Your post was added Successfully');
 
-     depopulate();
+                console.log("Document written with ID: ", docRef.id);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+
+    depopulate();
   };
   const depopulate = () => {
     setprice("");
@@ -91,12 +122,18 @@ const AddPostScreen = () => {
         <Text className="text-base mb-3 ">
           Add a new post and start selling !
         </Text>
-        <Pressable onPress={pickImage} >
-        {image?  <Image source={{ uri: image }} className="h-[15vh] w-[30vw] my-3 mx-1 rounded-xl" /> :   <Image
-          source={require("./../../assets/placeholderImage.jpg")}
-          className="h-[15vh] w-[30vw] my-3 mx-1 rounded-xl"
-        /> }
-      
+        <Pressable onPress={pickImage}>
+          {image ? (
+            <Image
+              source={{ uri: image }}
+              className="h-[15vh] w-[30vw] my-3 mx-1 rounded-xl"
+            />
+          ) : (
+            <Image
+              source={require("./../../assets/placeholderImage.jpg")}
+              className="h-[15vh] w-[30vw] my-3 mx-1 rounded-xl"
+            />
+          )}
         </Pressable>
         <TextInput
           placeholder="Title"
@@ -128,16 +165,31 @@ const AddPostScreen = () => {
           onValueChange={(itemValue, itemIndex) =>
             setSelectedCategory(itemValue)
           }
-        >
+        >            
+        <Picker.Item label="Please select a category" value="Please select a category"  />
+
           {categoryList.map((item, index) => (
             <Picker.Item label={item.name} value={item.name} key={index} />
           ))}
         </Picker>
-        <Pressable className="bg-[#36454F]  rounded-3xl mt-4" onPress={submit}>
-          <Text className="text-white text-center font-semibold p-3 ">
-            Submit
-          </Text>
-        </Pressable>
+        {loading ? (
+          <Pressable
+            className="bg-[#ccc]  rounded-3xl mt-4"
+            onPress={()=>{}}
+            
+          >
+            <ActivityIndicator className="  p-3 " color='#ffffff'/>
+          </Pressable>
+        ) : (
+          <Pressable
+            className="bg-[#36454F]  rounded-3xl mt-4"
+            onPress={submit}
+          >
+            <Text className="text-white text-center font-semibold p-3 ">
+              Submit
+            </Text>
+          </Pressable>
+        )}
       </View>
     </ScrollView>
   );
