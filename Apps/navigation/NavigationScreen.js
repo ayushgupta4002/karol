@@ -8,6 +8,7 @@ import ExploreScreen from "../screens/ExploreScreen";
 import AddPostScreen from "../screens/AddPostScreen";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreenNavigation from "./HomeScreenNavigation";
 const Tab = createBottomTabNavigator();
 
 const NavigationScreen = () => {
@@ -32,7 +33,7 @@ const NavigationScreen = () => {
       >
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeScreenNavigation}
           options={{
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name="home" size={size} color={color}  />

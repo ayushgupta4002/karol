@@ -56,6 +56,12 @@ const AddPostScreen = () => {
   const submit = async () => {
     Vibration.vibrate(80);
     setLoading(true);
+    const isValid = await validate(); // Wait for the validation to complete
+    //  console.log(isValid);
+    if(isValid == false){
+      Alert.alert("Error", "Please fill all the fields !");
+      setLoading(false);
+    }else{
     console.log("title : " + title);
     console.log("description : " + description);
     console.log("price : " + price);
@@ -98,7 +104,9 @@ const AddPostScreen = () => {
       .catch((error) => console.log(error));
 
     depopulate();
+    }
   };
+
   const depopulate = () => {
     setprice("");
     setDescription("");
@@ -106,6 +114,26 @@ const AddPostScreen = () => {
     setSelectedCategory("");
     setImage(null);
   };
+
+  const validate=async()=>{
+    if(title== "" || title == null){
+      return Promise.resolve(false);
+      
+    }
+    if(price== "" || price == null){
+      return Promise.resolve(false);
+      
+    }
+    if(image== "" || image == null){
+      return Promise.resolve(false);
+      
+    }
+    if(description == "" || description ==null){
+      return Promise.resolve(false);
+    }
+
+    return Promise.resolve(true);
+  }
 
   const getCategories = async () => {
     setCategotyList([]);
