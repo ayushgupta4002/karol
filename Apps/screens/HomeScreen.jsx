@@ -36,7 +36,7 @@ const HomeScreen = () => {
     setCategotyList([]);
     const querySnapshot = await getDocs(collection(db, "category"));
     querySnapshot.forEach((doc) => {
-      console.log(" Docs ", doc.data());
+      // console.log(" Docs ", doc.data());
       setCategotyList((categoryList) => [...categoryList, doc.data()]);
     });
   };

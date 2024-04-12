@@ -1,15 +1,12 @@
 {
   "expo": {
     "name": "Karol",
-    "scheme": "Karol",
-
+    "scheme": "karol",
     "slug": "Karol",
-
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,13 +16,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.ayush_ftw.Karol"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,7 +40,13 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
+     
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "693f0095-e45d-4b34-86ec-4f85935c3deb"
+      }
+    }
   }
 }

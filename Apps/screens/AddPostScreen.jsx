@@ -17,10 +17,12 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useAuth } from "../context/ContextAuth";
 
 const storage = getStorage();
 
 const AddPostScreen = () => {
+  const {user} = useAuth();
   const [categoryList, setCategotyList] = useState([]);
   const [price, setprice] = useState();
   const [title, setTitle] = useState();
@@ -86,8 +88,8 @@ const AddPostScreen = () => {
                 price: price,
                 category: selectedCategory,
                 imageLink: downloadURL,
-                email: "ayush4002gupta@gmail.com",
-                userName: "ayush4002",
+                email:user?.userEmail,
+                userName: user?.userName,
               });
               if (docRef.id) {
                 setLoading(false);
@@ -165,7 +167,7 @@ const AddPostScreen = () => {
         </Pressable>
         <TextInput
           placeholder="Title"
-          className="p-3 border border-black rounded-xl my-2"
+          className="p-3 border  bg-white border-slate-200 rounded-xl my-2"
           value={title}
           onChangeText={(text) => setTitle(text)}
         />
@@ -176,9 +178,9 @@ const AddPostScreen = () => {
           }}
           value={description}
           onChangeText={(text) => setDescription(text)}
-          className=" pb-14 pt-3 pl-3 border border-black rounded-xl  my-2"
+          className=" pb-14 pt-3 bg-white pl-3 border border-slate-200 rounded-xl  my-2"
         />
-        <View className="p-3 border border-black rounded-xl flex-row flex items-center  my-2">
+        <View className="p-3 border  bg-white border-slate-200  rounded-xl flex-row flex items-center  my-2">
           <Text className="pr-2">$</Text>
           <TextInput
             placeholder="Price"

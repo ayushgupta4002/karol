@@ -1,22 +1,12 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-  ToastAndroid,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "../context/ContextAuth";
-
-const LoginScreen = () => {
-  const { onLogin } = useAuth();
+const RegisterScreen = () => {
   const navigation = useNavigation();
 
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
+  const [userName , setUserName] = useState();
 
   return (
     <View className="flex-1 bg-red flex-col ">
@@ -28,6 +18,14 @@ const LoginScreen = () => {
           />
         </View>
         <View className=" p-3 m-1 rounded-3xl w-[80%]	mx-auto">
+
+        <TextInput
+            placeholder="userName"
+            className="p-3 border border-black rounded-xl my-2"
+            value={Email}
+            onChangeText={(text) => setUserName(text)}
+          />
+
           <TextInput
             placeholder="Email"
             className="p-3 border border-black rounded-xl my-2"
@@ -44,12 +42,7 @@ const LoginScreen = () => {
           />
 
           <TouchableOpacity
-            onPress={async () => {
-              const login = await onLogin(Email, Password);
-              if (login == false) {
-               ToastAndroid.show('Value of one or more fields is wrong' , ToastAndroid.SHORT);
-              }
-            }}
+            onPress={() => console.log("login")}
             className=" bg-sky-800 p-3 m-1 rounded-xl w-[100%]	mx-auto "
           >
             <Text className="text-white text-lg text-center font-medium">
@@ -58,8 +51,9 @@ const LoginScreen = () => {
           </TouchableOpacity>
           <View className="flex flex-row items-center mx-auto my-3">
             <Text className="text-center">Not a member ?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("register")}>
+            <TouchableOpacity onPress={() => navigation.navigate("login")}>
               <Text className="text-center text-sky-900 font-semibold">
+                {" "}
                 Register here
               </Text>
             </TouchableOpacity>
@@ -70,4 +64,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
