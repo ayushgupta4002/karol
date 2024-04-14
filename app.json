@@ -17,9 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "config": {
-        "usesNonExemptEncryption": false
-      }
+      "bundleIdentifier": "com.karol.karol"
     },
     "android": {
       "adaptiveIcon": {
@@ -40,13 +38,18 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-     
       ]
     ],
     "extra": {
       "eas": {
         "projectId": "693f0095-e45d-4b34-86ec-4f85935c3deb"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/693f0095-e45d-4b34-86ec-4f85935c3deb"
     }
   }
 }

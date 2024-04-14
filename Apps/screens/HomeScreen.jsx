@@ -41,39 +41,63 @@ const HomeScreen = () => {
     });
   };
 
+  const HeadAbove = () => {
+    return (
+      <View>
+        <Header />
+        <View className="px-2 mt-4 ">
+          {sliderImages.length > 0 ? (
+            <Slider sliderImages={sliderImages} />
+          ) : (
+            <View>
+              <ActivityIndicator></ActivityIndicator>
+            </View>
+          )}
+        </View>
+
+        <View className=" mt-4  bg-white h-[30vh] ">
+          {/* <Text className="text-xl font-semibold my-3">Top Selection</Text> */}
+          <View className="my-3 items-center">
+            <Categories categories={categoryList} />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View>
-    <View>
-      
-          <Header />
-
-      <View className="px-2 mt-4 ">
-        {sliderImages.length > 0 ? (
-          <Slider sliderImages={sliderImages} />
-        ) : (
-          <View>
-            <ActivityIndicator></ActivityIndicator>
+      <Header />
+      <ScrollView className="mt-1 ">
+        <View>
+          <View className="px-2 mt-4 ">
+            {sliderImages.length > 0 ? (
+              <Slider sliderImages={sliderImages} />
+            ) : (
+              <View>
+                <ActivityIndicator></ActivityIndicator>
+              </View>
+            )}
           </View>
-        )}
-      </View>
 
-      <View className=" mt-4  bg-white h-[30vh] ">
-        {/* <Text className="text-xl font-semibold my-3">Top Selection</Text> */}
-        <View className="my-3 items-center">
-          <Categories categories={categoryList} />
+          <View className=" mt-4  bg-white h-[30vh] ">
+            <View className="my-3 items-center">
+              <Categories categories={categoryList} />
+            </View>
+          </View>
         </View>
-      </View>
-      <View className="px-3 mt-4  bg-white h-[30vh]">
-        <Text className="text-xl font-semibold my-3">Top Selections</Text>
-        <View className="my-3 items-center">
-          
+
+        <View className="px-3 mt-4 mb-[20vh]  bg-white ">
+          <Text className="text-xl font-semibold my-3 ml-2">Top Selections</Text>
+          <View className=" items-center">
+            <TopSelection />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
-    </View>
-    
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#D0D0D0",

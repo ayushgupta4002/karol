@@ -12,6 +12,7 @@ import HomeScreenNavigation from "./HomeScreenNavigation";
 import { useAuth } from "../context/ContextAuth";
 import { createStackNavigator } from "@react-navigation/stack";
 import RegisterScreen from "../screens/RegisterScreen";
+import Header from "../components/Header";
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -43,7 +44,7 @@ const NavigationScreen = () => {
       ) : (
         <Tab.Navigator
           screenOptions={({ route }) => ({
-            headerShown: false,
+           
             tabBarLabel: ({ color }) => (
               <Text
                 style={{
@@ -64,6 +65,7 @@ const NavigationScreen = () => {
               tabBarIcon: ({ color, size }) => (
                 <FontAwesome name="home" size={size} color={color} />
               ),
+              headerShown: false,
             }}
           />
           <Tab.Screen
@@ -73,6 +75,8 @@ const NavigationScreen = () => {
               tabBarIcon: ({ color, size }) => (
                 <FontAwesome name="search" size={size} color={color} />
               ),
+              header:Header
+
             }}
           />
           <Tab.Screen
@@ -82,6 +86,7 @@ const NavigationScreen = () => {
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="add-circle" size={size} color={color} />
               ),
+              headerShown: false,
             }}
           />
           <Tab.Screen
@@ -91,6 +96,7 @@ const NavigationScreen = () => {
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="person-sharp" size={size} color={color} />
               ),
+              headerShown: false,
             }}
           />
         </Tab.Navigator>
