@@ -1,35 +1,36 @@
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
+import { View, Text, ActivityIndicator } from "react-native";
+import React, { useState, useEffect } from "react";
+import { getFirestore , query , collection ,where,getDocs} from "firebase/firestore";
 import { app } from "../../firebaseConfig";
-import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../context/ContextAuth";
+import ErrorScreen from "../components/Error/ErrorScreen";
 import ListItem from "../components/ListItem";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
-const ExploreScreen = () => {
-  const [AllItems, setAllItems] = useState([]);
+const YourPosts = () => {
+  const navigation = useNavigation()
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   const db = getFirestore(app);
-  const navigation = useNavigation();
 
   useEffect(() => {
-    getAllItems();
+    getYourPosts();
   }, []);
-
-  const getAllItems = async () => {
+  const getYourPosts = async () => {
     setLoading(true);
+
     try {
-      const querySnapshot = await getDocs(collection(db, "UserPosts"));
-      const data = querySnapshot.docs.map((doc) => doc.data());
-      setAllItems(data);
-      console.log(AllItems);
+      const q = query(
+        collection(db, "UserPosts"),
+        where("email", "==", user.userEmail)
+      );
+      const querySnapshot = await getDocs(q);
+      const items = querySnapshot.docs.map((doc) => doc.data());
+      console.log(items+" : items for your posts")
+      setItems(items);
     } catch (error) {
       console.log(error);
     } finally {
@@ -44,13 +45,12 @@ const ExploreScreen = () => {
       </View>
     );
   }
-
   return (
     <>
-      {AllItems && AllItems.length > 0 ? (
+      {items && items.length > 0 ? (
         <View className="px-2 mt-4 ">
           <FlatList
-            data={AllItems}
+            data={items}
             numColumns={1}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
@@ -62,20 +62,18 @@ const ExploreScreen = () => {
                 }
                 className="w-full  mx-auto my-1"
               >
-           <ListItem item={item}/>
+                <ListItem item={item} />
               </TouchableOpacity>
             )}
           />
-      
         </View>
-       
       ) : (
         <View className="flex h-full">
-          <ErrorScreen message={"Data no available"} />
+          <ErrorScreen message={"You Have not Posted Anything!"} />
         </View>
       )}
     </>
   );
 };
 
-export default ExploreScreen;
+export default YourPosts;

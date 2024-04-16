@@ -5,6 +5,7 @@ import ProductPage from "../screens/ProductPage";
 import Header from "../components/Header";
 import { Button, View } from "react-native";
 import HeaderSearchBar from "../components/HeaderSearchBar";
+import YourPosts from "../screens/YourPosts";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,14 @@ const HomeScreenNavigation = () => {
             left:-18
           },
           headerTitle: (props) => <HeaderSearchBar width={250} />,        })}
+      />
+         <Stack.Screen
+        name="YourPosts"
+        component={YourPosts}
+        options={{
+          headerShown: true,
+          headerTitle : "Your Posts"
+        }}
       />
     </Stack.Navigator>
   );
