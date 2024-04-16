@@ -55,6 +55,16 @@ This is a prototype of an E-commerce mobile application built with React Native.
 ## Contributing
 Contributions are welcome! Please feel free to submit pull requests or open issues for any bugs or feature requests.
 
+##Some Images
+
+![Login](https://github.com/ayushgupta4002/karol/assets/66496371/dfbcda0c-0888-45b1-bb5d-900d075a9411)
+
+![home](https://github.com/ayushgupta4002/karol/assets/66496371/a0cad8c7-1168-46d7-a3b5-b6b8bb1c4cd7)
+
+![GLHtmXaaQAATeVi](https://github.com/ayushgupta4002/karol/assets/66496371/c238bddf-a7c1-4633-bb44-5bbb7db1cc48)
+
+
+
 
 ```
 
