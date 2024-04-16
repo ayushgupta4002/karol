@@ -57,9 +57,11 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ```
 ##Some Images
-<img src="https://github.com/ayushgupta4002/karol/assets/66496371/dfbcda0c-0888-45b1-bb5d-900d075a9411" width="40">
-<img src="https://github.com/ayushgupta4002/karol/assets/66496371/a0cad8c7-1168-46d7-a3b5-b6b8bb1c4cd7" width="40">
 
-<img src="https://github.com/ayushgupta4002/karol/assets/66496371/c238bddf-a7c1-4633-bb44-5bbb7db1cc48" width="48" >
+
+<img src="https://github.com/ayushgupta4002/karol/assets/66496371/dfbcda0c-0888-45b1-bb5d-900d075a9411" width="200">
+<img src="https://github.com/ayushgupta4002/karol/assets/66496371/a0cad8c7-1168-46d7-a3b5-b6b8bb1c4cd7" width="200">
+
+<img src="https://github.com/ayushgupta4002/karol/assets/66496371/c238bddf-a7c1-4633-bb44-5bbb7db1cc48" width="200" >
 
 
